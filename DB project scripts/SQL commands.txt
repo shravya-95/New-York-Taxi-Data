@@ -1,0 +1,307 @@
+Time	SQL
+18:36:54	SELECT N.PULocationID, count(*) FROM nyctaxi.jan_2019 N 
+ GROUP BY N.PULocationID
+ ORDER BY count(*)
+17:57:32	SELECT part_of_day, PULocationID, count(*) as count
+ FROM  nyctaxi.jan_2019
+ GROUP BY part_of_day
+ HAVING count(*)>AVG(count(*))
+17:57:24	SELECT part_of_day, PULocationID, count(*) as count
+ FROM  nyctaxi.jan_2019
+ GROUP BY part_of_day
+ HAVING count(*)>AVG(count(*))
+17:47:10	select * from mean_sd
+17:44:29	desc mean_sd
+17:44:21	desc mean_sd
+17:04:39	SELECT N.part_of_day, N.PULocationID, N.count
+ FROM (SELECT part_of_day, PULocationID, count(*) as count
+ FROM  nyctaxi.jan_2019
+ GROUP BY part_of_day, PULocationID) AS N, nyctaxi.mean_sd M
+ Where N.part_of_day = M.part_of_day AND M.part_of_day = 3 AND N.count > (M.mean+M.sd)
+17:03:31	SELECT N.part_of_day, N.PULocationID, N.count
+ FROM (SELECT part_of_day, PULocationID, count(*) as count
+ FROM  nyctaxi.jan_2019
+ GROUP BY part_of_day, PULocationID) AS N, nyctaxi.mean_sd M
+ Where N.part_of_day = M.part_of_day AND M.part_of_day = 2 AND N.count > (M.mean+M.sd)
+17:03:13	SELECT N.part_of_day, N.PULocationID, N.count
+ FROM (SELECT part_of_day, PULocationID, count(*) as count
+ FROM  nyctaxi.jan_2019
+ GROUP BY part_of_day, PULocationID) AS N, nyctaxi.mean_sd M
+ Where N.part_of_day = M.part_of_day=2 AND N.count > (M.mean+M.sd)
+16:56:34	SELECT N.part_of_day, N.PULocationID, N.count
+ FROM (SELECT part_of_day, PULocationID, count(*) as count
+ FROM  nyctaxi.jan_2019
+ GROUP BY part_of_day, PULocationID) AS N, nyctaxi.mean_sd M
+ Where N.part_of_day = M.part_of_day AND N.count > (M.mean+M.sd)
+16:51:48	SELECT N.part_of_day, N.PULocationID, count(*) as count
+ FROM  nyctaxi.jan_2019 N, nyctaxi.mean_sd M
+ Where N.part_of_day = M.part_of_day
+ GROUP BY N.part_of_day, N.PULocationID
+ HAVING count(*) > (M.mean + M.sd)
+16:50:18	SELECT N.part_of_day, N.PULocationID, count(*) as count
+ FROM  nyctaxi.jan_2019 N, nyctaxi.mean_sd M
+ Where N.part_of_day = M.part_of_day AND count > (M.mean + M.sd)
+ GROUP BY N.part_of_day, N.PULocationID
+16:49:42	SELECT N.part_of_day, N.PULocationID, count(*)
+ FROM  nyctaxi.jan_2019 N, nyctaxi.mean_sd M
+ Where N.part_of_day = M.part_of_day AND count(*) > (M.mean + M.sd)
+16:49:03	SELECT N.part_of_day, N.PULocationID, count(*)
+ FROM  nyctaxi.jan_2019 N, nyctaxi.mean_sd M
+ Where N.part_of_day = M.part_of_day AND count(*) > (M.mean + M.sd)
+ GROUP BY N.part_of_day, N.PULocationID
+16:33:22	SELECT * from nyctaxi.mean_sd
+16:32:28	CREATE TABLE nyctaxi.mean_sd 
+ AS (SELECT Temp.part_of_day, AVG(Temp.count) as mean, STDDEV(Temp.count) as sd
+ FROM (SELECT part_of_day, PULocationID, count(*) as count 
+ FROM nyctaxi.jan_2019 group by part_of_day,PULocationID) as Temp 
+ Group by Temp.part_of_day)
+16:32:14	CREATE TABLE mean_sd 
+ AS (SELECT Temp.part_of_day, AVG(Temp.count) as mean, STDDEV(Temp.count) as sd
+ FROM (SELECT part_of_day, PULocationID, count(*) as count 
+ FROM nyctaxi.jan_2019 group by part_of_day,PULocationID) as Temp 
+ Group by Temp.part_of_day)
+16:31:15	SELECT *
+ INTO mean_sd
+ FROM(SELECT Temp.part_of_day, AVG(Temp.count) as mean, STDDEV(Temp.count) as sd
+ FROM (SELECT part_of_day, PULocationID, count(*) as count 
+ FROM nyctaxi.jan_2019 group by part_of_day,PULocationID) as Temp 
+ Group by Temp.part_of_day) as Temp2
+16:31:01	SELECT *
+ INTO mean_sd
+ FROM(
+ SELECT Temp.part_of_day, AVG(Temp.count) as mean, STDDEV(Temp.count) as sd
+ FROM (SELECT part_of_day, PULocationID, count(*) as count 
+ FROM nyctaxi.jan_2019 group by part_of_day,PULocationID) as Temp 
+ Group by Temp.part_of_day)
+16:30:56	SELECT *
+ INTO mean_sd
+ FROM(
+ SELECT Temp.part_of_day, AVG(Temp.count) as mean, STDDEV(Temp.count) as sd
+ FROM (SELECT part_of_day, PULocationID, count(*) as count 
+ FROM nyctaxi.jan_2019 group by part_of_day,PULocationID) as Temp 
+ Group by Temp.part_of_day)
+16:29:41	SELECT Temp.part_of_day, AVG(Temp.count) as mean, STDDEV(Temp.count) as sd
+ INTO mean_sd
+ FROM (SELECT part_of_day, PULocationID, count(*) as count 
+ FROM nyctaxi.jan_2019 group by part_of_day,PULocationID) as Temp 
+ Group by Temp.part_of_day
+16:29:16	SELECT Temp.part_of_day, AVG(Temp.count), STDDEV(Temp.count) 
+ FROM (SELECT part_of_day, PULocationID, count(*) as count 
+ FROM nyctaxi.jan_2019 group by part_of_day,PULocationID) as Temp 
+ Group by Temp.part_of_day
+16:29:00	SELECT Temp.part_of_day, Temp.PULocationID, Temp.count
+ FROM (SELECT Temp.part_of_day, AVG(Temp.count) as Mean, STDDEV(Temp.count) as SD
+ FROM (SELECT part_of_day, PULocationID, count(*) as count
+ FROM nyctaxi.jan_2019
+ group by part_of_day,PULocationID) as Temp
+ Group by Temp.part_of_day) as Temp2
+ WHERE Temp.part_of_day=Temp2.part_of_day AND Temp.count>Temp2.mean
+ 
+ SELECT Temp.part_of_day, AVG(Temp.count) as Mean, STDDEV(Temp.count) as SD
+ FROM (SELECT part_of_day, PULocationID, count(*) as count
+ FROM nyctaxi.jan_2019
+ group by part_of_day,PULocationID) as Temp
+ Group by Temp.part_of_day 
+ 
+ SELECT Temp.part_of_day, AVG(Temp.count), STDDEV(Temp.count) 
+ FROM (SELECT part_of_day, PULocationID, count(*) as count 
+ FROM nyctaxi.jan_2019 group by part_of_day,PULocationID) as Temp 
+ Group by Temp.part_of_day
+16:27:17	SELECT Temp.part_of_day, Temp.PULocationID, Temp.count
+ FROM (SELECT Temp.part_of_day, AVG(Temp.count) as Mean, STDDEV(Temp.count) as SD
+ FROM (SELECT part_of_day, PULocationID, count(*) as count
+ FROM nyctaxi.jan_2019
+ group by part_of_day,PULocationID) as Temp
+ Group by Temp.part_of_day) as Temp2
+ WHERE Temp.part_of_day=Temp2.part_of_day AND Temp.count>Temp2.mean
+ 
+ SELECT Temp.part_of_day, AVG(Temp.count) as Mean, STDDEV(Temp.count) as SD
+ FROM (SELECT part_of_day, PULocationID, count(*) as count
+ FROM nyctaxi.jan_2019
+ group by part_of_day,PULocationID) as Temp
+ Group by Temp.part_of_day
+16:27:15	SELECT part_of_day, PULocationID, count(*)
+ FROM nyctaxi.jan_2019
+ group by part_of_day,PULocationID
+ Having count(*) > 500
+16:17:49	SELECT Temp.part_of_day, Temp.PULocationID, Temp.count
+ FROM (SELECT Temp.part_of_day, AVG(Temp.count) as Mean, STDDEV(Temp.count) as SD
+ FROM (SELECT part_of_day, PULocationID, count(*) as count
+ FROM nyctaxi.jan_2019
+ group by part_of_day,PULocationID) as Temp
+ Group by Temp.part_of_day) as Temp2
+ WHERE Temp.part_of_day=Temp2.part_of_day AND Temp.count>Temp2.mean
+16:12:53	SELECT Temp.part_of_day, AVG(Temp.count), STDDEV(Temp.count)
+ FROM (SELECT part_of_day, PULocationID, count(*) as count
+ FROM nyctaxi.jan_2019
+ group by part_of_day,PULocationID) as Temp
+ Group by Temp.part_of_day
+16:12:19	SELECT Temp.part_of_day, AVG(Temp.count)
+ FROM (SELECT part_of_day, PULocationID, count(*) as count
+ FROM nyctaxi.jan_2019
+ group by part_of_day,PULocationID) as Temp
+ Group by Temp.part_of_day
+16:11:32	SELECT Temp.part_of_day, AVG(count(*))
+ FROM (SELECT part_of_day, PULocationID, count(*)
+ FROM nyctaxi.jan_2019
+ group by part_of_day,PULocationID) as Temp
+ Group by Temp.part_of_day
+16:11:04	SELECT Temp.part_of_day, AVG(count(*))
+ FROM (SELECT part_of_day, PULocationID, count(*)
+ FROM nyctaxi.jan_2019
+ group by part_of_day,PULocationID) as Temp
+ Group by Temp.part_of_day
+16:11:02	SELECT part_of_day, PULocationID, count(*)
+ FROM nyctaxi.jan_2019
+ group by part_of_day,PULocationID
+ Having count(*) > 500
+16:10:52	SELECT Temp.part_of_day, AVG(count(*))
+ FROM (SELECT part_of_day, PULocationID, count(*)
+ FROM nyctaxi.jan_2019
+ group by part_of_day,PULocationID) as Temp
+ Group by part_of_day
+16:07:24	SELECT part_of_day, AVG(count(*))
+            FROM nyctaxi.jan_2019
+            group by part_of_day
+16:06:58	SELECT part_of_day, count(*)
+            FROM nyctaxi.jan_2019
+            group by part_of_day
+15:55:41	SELECT part_of_day, PULocationID, count(*)
+ FROM nyctaxi.jan_2019
+ group by part_of_day,PULocationID
+ Having count(*) > 500
+15:54:24	SELECT part_of_day, PULocationID, count(*)
+ FROM nyctaxi.jan_2019
+ group by part_of_day,PULocationID
+ Having count(*) > AVG(count(*))
+15:51:20	SELECT part_of_day, PULocationID, count(*)
+ FROM nyctaxi.jan_2019
+ group by part_of_day,PULocationID
+ Having count(*) > (AVG(count(*)) + STDDEV(count(*)))
+15:40:20	SELECT part_of_day, PULocationID, count(*)
+ FROM nyctaxi.jan_2019
+ group by part_of_day,PULocationID
+ order by part_of_day, count(*)
+15:37:14	SELECT part_of_day, PULocationID, count(*)
+ FROM nyctaxi.jan_2019
+ group by part_of_day,PULocationID
+15:30:49	SELECT * FROM nyctaxi.jan_2019
+15:29:53	SELECT trip_ID FROM nyctaxi.jan_2019
+15:29:19	SELECT trip_ID FROM nyctaxi.jan_2019 where part_of_day > 3
+15:26:46	ALTER TABLE `nyctaxi`.`jan_2019` 
+ ADD COLUMN `trip_id` INT(25) NOT NULL AUTO_INCREMENT AFTER `part_of_day`,
+ ADD PRIMARY KEY (`trip_id`)
+15:23:53	SELECT PULocationID FROM nyctaxi.jan_2019 where part_of_day > 3
+15:08:08	ALTER TABLE `nyctaxi`.`jan_2019` 
+ DROP COLUMN `trip_id`,
+ CHANGE COLUMN `part_of_day` `part_of_day` INT(11) NOT NULL ,
+ DROP PRIMARY KEY
+15:07:09	ALTER TABLE `nyctaxi`.`jan_2019` 
+ CHANGE COLUMN `` `trip_id` VARCHAR(45) NULL ,
+ DROP PRIMARY KEY
+15:06:53	ALTER TABLE `nyctaxi`.`jan_2019` 
+ CHANGE COLUMN `` `trip_id` VARCHAR(45) NULL ,
+ DROP PRIMARY KEY
+15:03:21	ALTER TABLE `nyctaxi`.`jan_2019` 
+ ADD COLUMN `trip_id` BIGINT(11) NOT NULL AUTO_INCREMENT AFTER `part_of_day`,
+ ADD PRIMARY KEY (`trip_id`)
+15:00:17	ALTER TABLE `nyctaxi`.`jan_2019` 
+ DROP COLUMN `trip_ID`,
+ CHANGE COLUMN `PULocationID` `PULocationID` INT(11) NOT NULL ,
+ CHANGE COLUMN `DOLocationID` `DOLocationID` INT(11) NOT NULL ,
+ CHANGE COLUMN `passenger_count` `passenger_count` INT(11) NOT NULL ,
+ CHANGE COLUMN `trip_distance` `trip_distance` DOUBLE NOT NULL ,
+ CHANGE COLUMN `fare_amount` `fare_amount` DOUBLE NOT NULL ,
+ CHANGE COLUMN `extra` `extra` DOUBLE NOT NULL ,
+ CHANGE COLUMN `mta_tax` `mta_tax` DOUBLE NOT NULL ,
+ CHANGE COLUMN `tip_amount` `tip_amount` DOUBLE NOT NULL ,
+ CHANGE COLUMN `tolls_amount` `tolls_amount` DOUBLE NOT NULL ,
+ CHANGE COLUMN `improvement_surcharge` `improvement_surcharge` DOUBLE NOT NULL ,
+ CHANGE COLUMN `total_amount` `total_amount` DOUBLE NOT NULL ,
+ CHANGE COLUMN `lpep_pickup_new_date` `lpep_pickup_new_date` DATE NOT NULL ,
+ CHANGE COLUMN `lpep_pickup_new_time` `lpep_pickup_new_time` TIME NOT NULL ,
+ CHANGE COLUMN `lpep_dropoff_new_date` `lpep_dropoff_new_date` DATE NOT NULL ,
+ CHANGE COLUMN `lpep_dropoff_new_time` `lpep_dropoff_new_time` TIME NOT NULL ,
+ DROP PRIMARY KEY
+14:59:21	ALTER TABLE `nyctaxi`.`jan_2019` 
+ CHANGE COLUMN `PULocationID` `PULocationID` INT(11) NOT NULL ,
+ CHANGE COLUMN `DOLocationID` `DOLocationID` INT(11) NOT NULL ,
+ CHANGE COLUMN `passenger_count` `passenger_count` INT(11) NOT NULL ,
+ CHANGE COLUMN `trip_distance` `trip_distance` DOUBLE NOT NULL ,
+ CHANGE COLUMN `fare_amount` `fare_amount` DOUBLE NOT NULL ,
+ CHANGE COLUMN `extra` `extra` DOUBLE NOT NULL ,
+ CHANGE COLUMN `mta_tax` `mta_tax` DOUBLE NOT NULL ,
+ CHANGE COLUMN `tip_amount` `tip_amount` DOUBLE NOT NULL ,
+ CHANGE COLUMN `tolls_amount` `tolls_amount` DOUBLE NOT NULL ,
+ CHANGE COLUMN `improvement_surcharge` `improvement_surcharge` DOUBLE NOT NULL ,
+ CHANGE COLUMN `total_amount` `total_amount` DOUBLE NOT NULL ,
+ CHANGE COLUMN `lpep_pickup_new_date` `lpep_pickup_new_date` DATE NOT NULL ,
+ CHANGE COLUMN `lpep_pickup_new_time` `lpep_pickup_new_time` TIME NOT NULL ,
+ CHANGE COLUMN `lpep_dropoff_new_date` `lpep_dropoff_new_date` DATE NOT NULL ,
+ CHANGE COLUMN `lpep_dropoff_new_time` `lpep_dropoff_new_time` TIME NOT NULL ,
+ CHANGE COLUMN  `trip_id` INT(11) NOT NULL
+14:57:43	ALTER TABLE `nyctaxi`.`jan_2019` 
+ CHANGE COLUMN `PULocationID` `PULocationID` INT(11) NOT NULL ,
+ CHANGE COLUMN `DOLocationID` `DOLocationID` INT(11) NOT NULL ,
+ CHANGE COLUMN `passenger_count` `passenger_count` INT(11) NOT NULL ,
+ CHANGE COLUMN `trip_distance` `trip_distance` DOUBLE NOT NULL ,
+ CHANGE COLUMN `fare_amount` `fare_amount` DOUBLE NOT NULL ,
+ CHANGE COLUMN `extra` `extra` DOUBLE NOT NULL ,
+ CHANGE COLUMN `mta_tax` `mta_tax` DOUBLE NOT NULL ,
+ CHANGE COLUMN `tip_amount` `tip_amount` DOUBLE NOT NULL ,
+ CHANGE COLUMN `tolls_amount` `tolls_amount` DOUBLE NOT NULL ,
+ CHANGE COLUMN `improvement_surcharge` `improvement_surcharge` DOUBLE NOT NULL ,
+ CHANGE COLUMN `total_amount` `total_amount` DOUBLE NOT NULL ,
+ CHANGE COLUMN `lpep_pickup_new_date` `lpep_pickup_new_date` DATE NOT NULL ,
+ CHANGE COLUMN `lpep_pickup_new_time` `lpep_pickup_new_time` TIME NOT NULL ,
+ CHANGE COLUMN `lpep_dropoff_new_date` `lpep_dropoff_new_date` DATE NOT NULL ,
+ CHANGE COLUMN `lpep_dropoff_new_time` `lpep_dropoff_new_time` TIME NOT NULL ,
+ CHANGE COLUMN `` `trip_id` INT NOT NULL AUTO_INCREMENT
+14:44:07	SELECT * FROM nyctaxi.jan_2019
+14:41:52	ALTER TABLE `nyctaxi`.`jan_2019` 
+ ADD COLUMN `trip_ID` INT NOT NULL AUTO_INCREMENT AFTER `part_of_day`,
+ ADD PRIMARY KEY (`trip_ID`)
+02:19:29	SELECT N.fare_amount FROM nyctaxi.jan_2019 N WHERE N.part_of_day=5
+23:17:16	SELECT * FROM nyctaxi.jan_2019
+22:29:20	SELECT * FROM nyctaxi.jan_2019
+21:30:54	SELECT * FROM nyctaxi.jan_2019
+20:38:00	SELECT * FROM nyctaxi.jan_2019
+20:20:12	SELECT * FROM nyctaxi.jan_2019
+20:19:48	SELECT * FROM nyctaxi.jan_2019
+20:18:42	SELECT * FROM nyctaxi.jan_2019
+20:16:24	SELECT * FROM nyctaxi.jan_2019
+20:06:16	SELECT * FROM nyctaxi.jan_2019
+18:30:43	SELECT * FROM nyctaxi.jan_2019
+18:29:55	SELECT * FROM nyctaxi.jan_2019
+18:26:58	SELECT * FROM nyctaxi.jan_2019
+18:24:58	SELECT * FROM nyctaxi.jan_2019
+18:12:22	SELECT * FROM nyctaxi.jan_2019
+18:10:12	SELECT * FROM nyctaxi.jan_2019
+18:09:06	SELECT * FROM nyctaxi.jan_2019
+18:08:59	SELECT * FROM nyctaxi.jan_2019
+18:08:19	SELECT * FROM nyctaxi.jan_2019
+18:07:59	SELECT * FROM nyctaxi.jan_2019
+18:07:49	SELECT * FROM nyctaxi.jan_2019
+18:07:35	SELECT * FROM nyctaxi.jan_2019
+18:06:40	SELECT * FROM nyctaxi.jan_2019
+18:05:42	SELECT * FROM nyctaxi.jan_2019
+18:05:34	SELECT * FROM nyctaxi.jan_2019
+18:04:56	SELECT * FROM nyctaxi.jan_2019
+18:04:55	SELECT * FROM nyctaxi.jan_2019
+18:04:53	SELECT * FROM nyctaxi.jan_2019
+18:04:49	SELECT * FROM nyctaxi.jan_2019
+18:04:45	SELECT * FROM nyctaxi.jan_2019
+18:04:40	SELECT * FROM nyctaxi.jan_2019
+18:04:33	SELECT * FROM nyctaxi.jan_2019
+18:04:26	SELECT * FROM nyctaxi.jan_2019
+18:04:20	SELECT * FROM nyctaxi.jan_2019
+18:04:13	SELECT * FROM nyctaxi.jan_2019
+18:03:56	SELECT * FROM nyctaxi.jan_2019
+18:03:15	ALTER TABLE `nyctaxi`.`jan_2019` 
+ CHANGE COLUMN `store_and_fwd_flag` `store_and_fwd_flag` VARCHAR(2) NULL DEFAULT NULL ,
+ CHANGE COLUMN `lpep_pickup_new_date` `lpep_pickup_new_date` DATE NULL DEFAULT NULL ,
+ CHANGE COLUMN `lpep_pickup_new_time` `lpep_pickup_new_time` TIME NULL DEFAULT NULL ,
+ CHANGE COLUMN `lpep_dropoff_new_date` `lpep_dropoff_new_date` DATE NULL DEFAULT NULL ,
+ CHANGE COLUMN `lpep_dropoff_new_time` `lpep_dropoff_new_time` TIME NULL DEFAULT NULL
+18:01:08	SELECT * FROM nyctaxi.jan_2019
+17:01:53	CREATE SCHEMA `nyctaxi`
